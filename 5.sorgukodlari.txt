@@ -1,0 +1,33 @@
+5.SORGU -- Her Hasta İçin Alınan Tedaviler ve Reçetelenen İlaçlar
+
+WITH RandevuSiralama AS (
+    SELECT
+        RandevuID,
+        HastaID,
+        ROW_NUMBER() OVER (PARTITION BY HastaID ORDER BY RandevuTarihi) AS RandevuSirasi
+    FROM
+        Randevu
+)
+SELECT
+    H.Isim AS HastaIsim,
+    H.Soyisim AS HastaSoyisim,
+    T.TedaviTuru,
+    I.IlacAdi,
+    RI.Dozaj,
+    RI.KullanimSuresi
+FROM
+    Hasta H
+JOIN
+    Hasta_Tedavi HT ON H.HastaID = HT.HastaID
+JOIN
+    Tedavi T ON HT.TedaviID = T.TedaviID
+JOIN
+    RandevuSiralama RS ON RS.HastaID = H.HastaID AND RS.RandevuSirasi = 1 -- İlk randevu
+JOIN
+    Recete R ON R.RandevuID = RS.RandevuID
+JOIN
+    Recete_Ilac RI ON R.ReceteID = RI.ReceteID
+JOIN
+    Ilac I ON RI.IlacID = I.IlacID
+ORDER BY
+    H.HastaID, T.TedaviTuru;

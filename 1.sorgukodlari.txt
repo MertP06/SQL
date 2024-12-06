@@ -1,0 +1,20 @@
+1.SORGU -- Bir Hastanın Tüm Randevularını ve İlgili Doktorları Getirme
+
+SELECT
+    H.Isim AS HastaIsim,
+    H.Soyisim AS HastaSoyisim,
+    R.RandevuTarihi,
+    R.RandevuSaati,
+    D.Isim AS DoktorIsim,
+    D.Soyisim AS DoktorSoyisim,
+    D.Brans
+FROM
+    Randevu R
+JOIN
+    Hasta H ON R.HastaID = H.HastaID
+JOIN
+    Doktor D ON R.DoktorID = D.DoktorID
+WHERE
+    H.HastaID = 1 -- Bu kısmı istediğiniz hasta ID'si ile değiştirebilirsiniz
+ORDER BY
+    R.RandevuTarihi;

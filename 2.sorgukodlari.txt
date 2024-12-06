@@ -1,0 +1,13 @@
+2.SORGU -- Bir Tedavi Türü İçin Uygulanan Hasta Sayısını Getirme
+
+SELECT
+    T.TedaviTuru,
+    COUNT(HT.HastaID) AS UygulananHastaSayisi
+FROM
+    Tedavi T
+JOIN
+    Hasta_Tedavi HT ON T.TedaviID = HT.TedaviID
+WHERE
+    T.TedaviTuru = 'Ameliyat' -- Bu kısmı istediğiniz tedavi türü ile değiştirebilirsiniz
+GROUP BY
+    T.TedaviTuru;

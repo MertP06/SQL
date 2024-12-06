@@ -1,0 +1,15 @@
+4.SORGU -- Bir Bölümdeki Doktorların Çalışma Saatlerini ve İlgili Bölüm Bilgilerini Listeleme
+
+SELECT
+    B.BolumAdi,
+    D.Isim AS DoktorIsim,
+    D.Soyisim AS DoktorSoyisim,
+    D.CalismaSaatleri
+FROM
+    Bolum B
+JOIN
+    Doktor D ON B.SorumluDoktorID = D.DoktorID
+WHERE
+    B.BolumAdi = 'Kardiyoloji' -- Bu kısmı istediğiniz bölüm adı ile değiştirebilirsiniz
+ORDER BY
+    D.Isim;

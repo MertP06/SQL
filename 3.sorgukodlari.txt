@@ -1,0 +1,18 @@
+3.SORGU -- Hastaların Aldığı İlaçlar ve Kullanım Sürelerini Listeleme
+
+SELECT
+    H.Isim AS HastaIsim,
+    H.Soyisim AS HastaSoyisim,
+    I.IlacAdi,
+    RI.Dozaj,
+    RI.KullanimSuresi
+FROM
+    Recete_Ilac RI
+JOIN
+    Recete R ON RI.ReceteID = R.ReceteID
+JOIN
+    Ilac I ON RI.IlacID = I.IlacID
+JOIN
+    Hasta H ON R.RandevuID = H.HastaID
+ORDER BY
+    H.HastaID, I.IlacAdi;
